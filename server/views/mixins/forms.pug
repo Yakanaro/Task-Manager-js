@@ -1,26 +1,56 @@
+//- - const getInputName = (property) => `data[${property}]`
+//- - const getInputId = (property) => `data_${property}`
+
+//- mixin formFor(entity = null)
+//-   form&attributes(attributes)
+//-     block
+
+//- mixin input(entity, propertyName, errors = {})
+//-   - propertyErrors = _.get(errors, propertyName)
+//-   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+//-   - inputId = getInputId(propertyName)
+//-   .mb-3(class=(errors[propertyName] && 'has-danger'))
+//-     label(
+//-       for= inputId
+//-     )= propertyName
+//-     input(
+//-       id= inputId
+//-       name=getInputName(propertyName)
+//-       class=classLine
+//-       value=_.get(entity, propertyName, '')
+//-     )&attributes(attributes)
+//-     if !_.isEmpty(propertyErrors)
+//-       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
-
+- const mappingErrorMessage = { name: t('views.errors.firstName'), firstName: t('views.errors.firstName'), lastName: t('views.errors.lastName'), password: t('views.errors.password'), email: t('views.errors.email'), };
 mixin formFor(entity = null)
   form&attributes(attributes)
     block
-
-mixin input(entity, propertyName, errors = {})
+mixin input(entity, propertyName, placeholder, errors = {})
   - propertyErrors = _.get(errors, propertyName)
   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
-  .mb-3(class=(errors[propertyName] && 'has-danger'))
-    label(
-      for= inputId
-    )= propertyName
+  .form-floating.my-3(class=(errors[propertyName] && 'has-danger'))
     input(
       id= inputId
-      name=getInputName(propertyName)
-      class=classLine
-      value=_.get(entity, propertyName, '')
+      name= getInputName(propertyName)
+      class= classLine
+      value= _.get(entity, propertyName, '')
+      placeholder= placeholder
     )&attributes(attributes)
+    label(
+      for= inputId
+    )= placeholder
     if !_.isEmpty(propertyErrors)
-      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+      if errors.email[0].message && errors.register
+        .invalid-feedback= errors.email[0].message
+      else
+        if mappingErrorMessage[propertyName]
+          .invalid-feedback= mappingErrorMessage[propertyName]
+        else
+          .invalid-feedback= propertyErrors.map(({ message }) => message).join('.')
 
 mixin submit(form = null)
   input(class='btn btn-primary' type='submit')&attributes(attributes)

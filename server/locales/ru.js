@@ -41,6 +41,9 @@ export default {
         email: 'Email',
         createdAt: 'Дата создания',
         new: {
+          email: 'Введите вашу почту',
+          password: 'Придумайте пароль',
+          firstName: 'Введите ваше имя',
           submit: 'Сохранить',
           signUp: 'Регистрация',
         },
