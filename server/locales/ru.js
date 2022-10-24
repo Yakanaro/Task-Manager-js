@@ -18,6 +18,14 @@ export default {
           error: 'Не удалось зарегистрировать',
           success: 'Пользователь успешно зарегистрирован',
         },
+        delete: {
+          error: 'Не удалось удалить пользователя',
+          success: 'Пользователь удален',
+        },
+        edit: {
+          error: 'Не удалось изменить пользователя',
+          success: 'Пользователь изменен',
+        }
       },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
@@ -32,21 +40,37 @@ export default {
     views: {
       session: {
         new: {
+          email: 'Email',
+          password: 'Пароль',
           signIn: 'Вход',
           submit: 'Войти',
         },
+      errors: {
+        email: 'Некорректный email'
+      }
       },
       users: {
         id: 'ID',
+        fullName:'Полное имя',
         email: 'Email',
         createdAt: 'Дата создания',
+        actions: 'Действия',
         new: {
           email: 'Введите вашу почту',
           password: 'Придумайте пароль',
           firstName: 'Введите ваше имя',
+          lastName: 'Введите вашу фамилию',
           submit: 'Сохранить',
           signUp: 'Регистрация',
         },
+        edit: {
+          firstName: 'Имя',
+          lastName: 'Фамилия',
+          email: 'Почта',
+          password: 'Пароль',
+          submit: 'Принять',
+          edit: 'Редактировать пользователя',
+        }
       },
       welcome: {
         index: {

@@ -1,0 +1,13 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.users.edit.edit')
+
+block content
+  +formFor()(action=`/users/${user.id}` method="post")
+    +input(user, 'firstName', t('views.users.edit.firstName'), errors)(type="text")
+    +input(user, 'lastName', t('views.users.edit.lastName'), errors)(type="text")
+    +input(user, 'email', t('views.users.edit.email'), errors)(type="email")
+    +input({}, 'password', t('views.users.edit.password'), errors)(type="password")
+    input(name="_method" type="hidden" value="patch")
+    +submit()(value=t('views.users.edit.submit'))
