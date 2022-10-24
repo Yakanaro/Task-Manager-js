@@ -6,8 +6,9 @@ block content
       tr
         th= t('views.users.id')
         th= t('views.users.fullName')
+        th= t('views.users.email')
         th= t('views.users.createdAt')
-        th= t('views.users.actions')
+        th= t('views.users.action')
         th
     tbody
       each user in users
@@ -17,7 +18,13 @@ block content
           td= user.email
           td= formatDate(user.createdAt)
           td
-            a(href=route('editUser', { id: user.id }))= t('views.users.actions.edit')
-            form(action=route('deleteUser', { id: user.id }), method='post')
-              input(name='_method', type='hidden', value='delete')
-              input.btn.btn-link(type='submit', value= t('views.users.actions.delete'))
+            .d-flex.flex-wrap
+              a.btn.btn-primary.me-1(href=route('editUser', { id: user.id }))= t('views.users.actions.edit')
+              +formFor()(action=route('deleteUser', { id: user.id }) method='post')
+                input(name='_method' type='hidden' value='delete')
+                +submit(user)(class="btn-danger" value=t('views.users.actions.delete'))
+            //- a(href=route('editUser', { id: user.id }))= t('views.users.actions.edit')
+          //-   a.btn.btn-primary.btn-sm.px-2.mt-1.fw-bold(href=route('editUser', { id: user.id }))= t('views.users.edit.editButton')
+          //- td 
+          //-   +buttonTo(`/users/${user.id}`, 'delete')(value=t('views.users.edit.editButton') class="btn btn-primary.btn-sm.px-2.mt-1.fw-bold")
+          //-   a.btn.btn-primary.btn-sm.px-2.mt-1.fw-bold(href=route('deleteUser', {id: user.id}))= t('views.users.edit.editButton')

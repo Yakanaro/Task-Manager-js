@@ -25,7 +25,21 @@ export default {
         edit: {
           error: 'Не удалось изменить пользователя',
           success: 'Пользователь изменен',
-        }
+        },
+      },
+      statuses: {
+        create: {
+          error: 'Не удалось создать статус',
+          success: 'Статус успешно создан',
+        },
+        delete: {
+          error: 'Не удалось удалить статус',
+          success: 'Статус удален',
+        },
+        edit: {
+          error: 'Не удалось изменить статус',
+          success: 'Статус изменен',
+        },
       },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
@@ -35,6 +49,7 @@ export default {
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выход',
+        statuses: 'Статус',
       },
     },
     views: {
@@ -53,8 +68,12 @@ export default {
         id: 'ID',
         fullName:'Полное имя',
         email: 'Email',
+        action:'Действия',
         createdAt: 'Дата создания',
-        actions: 'Действия',
+          actions: {
+            delete: 'Удалить',
+            edit:'Изменить',
+          },
         new: {
           email: 'Введите вашу почту',
           password: 'Придумайте пароль',
@@ -64,20 +83,40 @@ export default {
           signUp: 'Регистрация',
         },
         edit: {
+          editButton: 'Изменить',
           firstName: 'Имя',
           lastName: 'Фамилия',
           email: 'Почта',
           password: 'Пароль',
           submit: 'Принять',
-          edit: 'Редактировать пользователя',
         }
       },
-      welcome: {
+      statuses: {
+        title: 'Изменение статуса',
         index: {
-          hello: 'Привет от Хекслета!',
-          description: 'Практические курсы по программированию',
-          more: 'Узнать Больше',
+          id: 'ID',
+          name: 'Наименование',
+          createdAt: 'Дата создания',
+          create: 'Создать',
+      },
+        new: {
+          createStatus: 'Введите статус',
+          name: 'Наименование',
+          create: 'Создать статус',
         },
+        actions: {
+          edit: 'Изменить',
+          delete: 'Удалить',
+          submit: 'Принять',
+        },
+
+    },
+        welcome: {
+          index: {
+            hello: 'Привет от Хекслета!',
+            description: 'Практические курсы по программированию',
+            more: 'Узнать Больше',
+          },
       },
     },
   },

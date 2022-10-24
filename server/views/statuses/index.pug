@@ -1,0 +1,27 @@
+extends ../layouts/application.pug
+
+block header
+  = t('layouts.application.statuses')
+
+block content
+  //- a(href=route('newStatus'))= t('views.statuses.index.create')
+  a.btn.btn-primary.me-1(href=route('newStatus'))= t('views.statuses.index.create')
+  table.table.table-hover
+    thead
+      tr
+        th(scope='col')= t('views.statuses.index.id')
+        th(scope='col')= t('views.statuses.index.name')
+        th(scope='col')= t('views.statuses.index.createdAt')
+        th
+    tbody
+      each status in statuses
+        tr
+          td= status.id
+          td= status.name
+          td= formatDate(status.createdAt)
+          td 
+            .d-flex.flex-wrap
+              a.btn.btn-primary.me-1(href=route('editStatus', { id: status.id }))= t('views.statuses.actions.edit')
+              +formFor()(action=route('deleteStatus', { id: status.id }) method='post')
+                input(name='_method' type='hidden' value='delete')
+                +submit()(class="btn-danger" value=t('views.statuses.actions.delete'))
