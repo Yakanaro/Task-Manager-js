@@ -5,10 +5,10 @@ const unique = objectionUnique({
   fields: ['name'],
 });
 
-module.exports = class Status extends unique(BaseModel) {
+module.exports = class Label extends unique(BaseModel) {
   // @ts-ignore
   static get tableName() {
-    return 'statuses';
+    return 'labels';
   }
   // @ts-ignore
   static get jsonSchema() {
@@ -16,13 +16,11 @@ module.exports = class Status extends unique(BaseModel) {
       type: 'object',
       required: ['name'],
       properties: {
-        creatorId: { type: 'integer' },
-        name: { type: 'string', minLength: 1, maxLength: 255 },
-        createdAt: { type: 'string' },
+        name: { type: 'string', minLength: 1 },
       },
     };
   }
-  // @ts-ignore
+
   static get relationMappings() {
     return {
       tasks: {
@@ -30,10 +28,10 @@ module.exports = class Status extends unique(BaseModel) {
         modelClass: 'User.cjs',
 
         join: {
-          from: 'statuses.creatorId',
+          from: 'labels.creator_id',
           to: 'users.id',
         },
       },
     };
   }
-};
+}

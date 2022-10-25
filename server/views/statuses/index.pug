@@ -4,7 +4,6 @@ block header
   = t('layouts.application.statuses')
 
 block content
-  //- a(href=route('newStatus'))= t('views.statuses.index.create')
   a.btn.btn-primary.me-1(href=route('newStatus'))= t('views.statuses.index.create')
   table.table.table-hover
     thead
@@ -12,7 +11,7 @@ block content
         th(scope='col')= t('views.statuses.index.id')
         th(scope='col')= t('views.statuses.index.name')
         th(scope='col')= t('views.statuses.index.createdAt')
-        th
+        th(scope='col')= t('views.statuses.index.actions')
     tbody
       each status in statuses
         tr

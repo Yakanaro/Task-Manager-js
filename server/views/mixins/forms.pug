@@ -52,6 +52,76 @@ mixin input(entity, propertyName, placeholder, errors = {})
         else
           .invalid-feedback= propertyErrors.map(({ message }) => message).join('.')
 
+mixin select(options, propertyName, selected = {}, errors = {}, label, multiple)
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+
+  .mb-3(class=(errors[propertyName] && 'has-danger'))
+    label.mb-1(
+      for= inputId
+    )= label
+
+    select(
+      id= inputId
+      name=getInputName(propertyName)
+      class=classLine
+      multiple=multiple
+    )&attributes(attributes)
+      if !multiple 
+        option
+      each option in options
+        - const name = option.name ? option.name : `${option.firstName} ${option.lastName}`
+        - const isSelected = selected[propertyName]?.includes?.(option.id)
+        option(value=option.id selected=isSelected)=name
+
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+
+mixin filterSelect(options = [], propertyName, selected = {}, label)
+  - inputId = getInputId(propertyName)
+
+  .input-group.mb-3
+    label.input-group-text(for=inputId)=label
+
+    select.form-select(
+      id= inputId
+      name=getInputName(propertyName)
+    )&attributes(attributes)
+      option
+      each option in options
+        - const name = option.name ? option.name : `${option.firstName} ${option.lastName}`
+        - const isSelected = selected[propertyName]?.includes?.(option.id)
+        option(value=option.id selected=isSelected)=name
+
+
+mixin checkbox(propertyName, selected = {}, label)
+  - inputId = getInputId(propertyName)
+  - isChecked = selected[propertyName]
+
+  .mb-3.form-check
+    input(
+      id=inputId 
+      name=getInputName(propertyName)
+      class='form-check-input' 
+      type='checkbox' 
+      checked=isChecked
+    )
+    label.form-check-label(for=inputId)=label
+
+mixin textarea(entity, propertyName, labelText)
+  - classLine = 'form-control'
+  - inputId = getInputId(propertyName)
+  .mb-3
+    label(
+      for= inputId
+    )= labelText
+    textarea(
+      id= inputId
+      name=getInputName(propertyName)
+      class=classLine
+    )= _.get(entity, propertyName, '')
+
 mixin submit(form = null)
   input(class='btn btn-primary' type='submit')&attributes(attributes)
 

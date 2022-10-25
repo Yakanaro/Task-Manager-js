@@ -41,6 +41,34 @@ export default {
           success: 'Статус изменен',
         },
       },
+      labels: {
+        create: {
+          error: 'Не удалось создать метку',
+          success: 'Метка успешно создана',
+        },
+        delete: {
+          error: 'Не удалось удалить метку',
+          success: 'Метка удалена',
+        },
+        edit: {
+          error: 'Не удалось изменить метку',
+          success: 'Метка изменена',
+      },
+    },
+      tasks: {
+        create: {
+          error: 'Не удалось создать задачу',
+          success: 'Задача успешно создана',
+        },
+        delete: {
+          error: 'Не удалось удалить задачу',
+          success: 'Задача удалена',
+        },
+        edit: {
+          error: 'Не удалось изменить задачу',
+          success: 'Задача изменена',
+      } 
+    },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
     layouts: {
@@ -50,6 +78,8 @@ export default {
         signUp: 'Регистрация',
         signOut: 'Выход',
         statuses: 'Статус',
+        labels: 'Метки',
+        tasks: 'Задачи',
       },
     },
     views: {
@@ -83,6 +113,7 @@ export default {
           signUp: 'Регистрация',
         },
         edit: {
+          editUser: 'Изменить пользователя',
           editButton: 'Изменить',
           firstName: 'Имя',
           lastName: 'Фамилия',
@@ -97,6 +128,7 @@ export default {
           id: 'ID',
           name: 'Наименование',
           createdAt: 'Дата создания',
+          actions: 'Действия',
           create: 'Создать',
       },
         new: {
@@ -109,8 +141,55 @@ export default {
           delete: 'Удалить',
           submit: 'Принять',
         },
-
     },
+      labels: {
+        index: {
+          id: 'ID',
+          name: 'Наименование',
+          createdAt: 'Дата создания',
+          actions: 'Действия',
+        },
+        actions: {
+          create: 'Создать',
+          edit: 'Изменить',
+          delete: 'Удалить',
+        },
+        new: {
+          title: 'Создать метку',
+          name: 'Наименование',
+          submit: 'Принять',
+          newName: 'Введите наименование',
+        },
+        edit: {
+          title: 'Изменить метку',
+        }
+      },
+      tasks: {
+        index: {
+          id: 'ID',
+          name: 'Наименование',
+          createdAt: 'Дата создания',
+          status: 'Статус',
+          executor: 'Исполнитель',
+          author: 'Автор',
+          onlyUserTasks: 'Только мои задачи',
+          label: 'Метка',
+          description: 'Описание',
+        },
+        actions: {
+          create: 'Создать задачу',
+          view: 'Показать',
+          edit: 'Изменить',
+          delete: 'Удалить',
+        },
+        new: {
+          title: 'Создать задачу',
+          submit: 'Создать',
+        },
+        edit: {
+          title: 'Изменить задачу',
+        }
+      },
         welcome: {
           index: {
             hello: 'Привет от Хекслета!',

@@ -28,20 +28,6 @@ module.exports = class User extends unique(BaseModel) {
     };
   }
 
-  // @ts-ignore
-  static get relationMappings() {
-    return {
-      statuses: {
-        relation: BaseModel.HasManyRelation,
-        modelClass: 'Status.cjs',
-
-        join: {
-          from: 'users.id',
-          to: 'statuses.creator_id',
-        },
-      },
-    }
-  }
   set password(value) {
     this.passwordDigest = encrypt(value);
   }

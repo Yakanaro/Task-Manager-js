@@ -1,7 +1,10 @@
 extends ../layouts/application.pug
 
+block header
+  = t('layouts.application.users')
+
 block content
-  table.table.table-striped
+  table.table.table-hover
     thead
       tr
         th= t('views.users.id')
@@ -9,7 +12,6 @@ block content
         th= t('views.users.email')
         th= t('views.users.createdAt')
         th= t('views.users.action')
-        th
     tbody
       each user in users
         tr
@@ -23,8 +25,4 @@ block content
               +formFor()(action=route('deleteUser', { id: user.id }) method='post')
                 input(name='_method' type='hidden' value='delete')
                 +submit(user)(class="btn-danger" value=t('views.users.actions.delete'))
-            //- a(href=route('editUser', { id: user.id }))= t('views.users.actions.edit')
-          //-   a.btn.btn-primary.btn-sm.px-2.mt-1.fw-bold(href=route('editUser', { id: user.id }))= t('views.users.edit.editButton')
-          //- td 
-          //-   +buttonTo(`/users/${user.id}`, 'delete')(value=t('views.users.edit.editButton') class="btn btn-primary.btn-sm.px-2.mt-1.fw-bold")
-          //-   a.btn.btn-primary.btn-sm.px-2.mt-1.fw-bold(href=route('deleteUser', {id: user.id}))= t('views.users.edit.editButton')
+            

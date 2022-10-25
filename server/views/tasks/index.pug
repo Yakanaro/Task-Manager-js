@@ -1,0 +1,47 @@
+extends ../layouts/application.pug
+
+block header
+  = t('layouts.application.tasks')
+
+block content
+  a.btn.btn-primary.btn-lg.mb-4(href=route('newTask'))= t('views.tasks.actions.create')
+
+  .card.shadow-sm 
+    .card-body.p4
+       +formFor()(action=route('tasks') method='get')
+        .row 
+          .col-12.col-md
+            +filterSelect(statuses, 'status', selected, t('views.tasks.index.status'))
+          .col-12.col-md
+            +filterSelect(users, 'executor', selected, t('views.tasks.index.executor'))
+          .col-12.col-md
+            +filterSelect(labels, 'label', selected, t('views.tasks.index.label'))
+        +checkbox('isCreatorUser', selected, t('views.tasks.index.onlyUserTasks'))
+        +submit()(value=t('views.tasks.actions.view')) 
+
+  table.table.table-striped.mt-5
+    thead
+      tr
+        th= t('views.tasks.index.id')
+        th= t('views.tasks.index.name')
+        th= t('views.tasks.index.status')
+        th= t('views.tasks.index.author')
+        th= t('views.tasks.index.executor')
+        th= t('views.tasks.index.createdAt')
+    tbody
+      each task in tasks
+        - const { status, creator, executor } = task
+        tr
+          td= task.id
+          td 
+            a(href=route('viewTask', { id: task.id }))= task.name
+          td= status.name
+          td= `${creator.firstName} ${creator.lastName}`
+          td= executor && `${executor.firstName} ${executor.lastName}`
+          td= formatDate(task.createdAt)
+          td
+            .d-flex.flex-wrap
+              a.btn.btn-primary.me-1(href=route('editTask', { id: task.id }))= t('views.tasks.actions.edit')
+              +formFor()(action=route('deleteTask', { id: task.id }) method='post')
+                input(name='_method' type='hidden' value='delete')
+                +submit()(class="btn-danger" value=t('views.tasks.actions.delete'))
