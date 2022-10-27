@@ -28,29 +28,22 @@
 mixin formFor(entity = null)
   form&attributes(attributes)
     block
-mixin input(entity, propertyName, placeholder, errors = {})
+mixin input(entity, propertyName, label, errors = {})
   - propertyErrors = _.get(errors, propertyName)
-  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - classLine = 'form-control' + (_.isEmpty(errors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
-  .form-floating.my-3(class=(errors[propertyName] && 'has-danger'))
-    input(
-      id= inputId
-      name= getInputName(propertyName)
-      class= classLine
-      value= _.get(entity, propertyName, '')
-      placeholder= placeholder
-    )&attributes(attributes)
+  .form-group(class=(errors[propertyName] && 'has-danger'))
     label(
       for= inputId
-    )= placeholder
+    )= label
+    input(
+      id= inputId
+      name=getInputName(propertyName)
+      class=classLine
+      value=_.get(entity, propertyName, '')
+    )&attributes(attributes)
     if !_.isEmpty(propertyErrors)
-      if errors.email[0].message && errors.register
-        .invalid-feedback= errors.email[0].message
-      else
-        if mappingErrorMessage[propertyName]
-          .invalid-feedback= mappingErrorMessage[propertyName]
-        else
-          .invalid-feedback= propertyErrors.map(({ message }) => message).join('.')
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
 
 mixin select(options, propertyName, selected = {}, errors = {}, label, multiple)
   - propertyErrors = _.get(errors, propertyName)
