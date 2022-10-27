@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 // @ts-check
 
 import { fileURLToPath } from 'url';
