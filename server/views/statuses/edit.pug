@@ -7,5 +7,5 @@ block content
   .p-1.mb-1.bg-light.rounded-1
     +formFor()(action=route('editStatusEndPoint', { id: status.id }) method='post')
       input(name='_method' type='hidden' value='patch')
-      +input(status, 'name', t('views.statuses.index.name'), errors)(type="text") 
+      +input(status, 'name', errors, t('views.statuses.index.name'))(type="text") 
       +submit()(value=t('views.statuses.actions.edit'))

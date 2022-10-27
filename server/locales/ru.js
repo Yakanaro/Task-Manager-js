@@ -91,7 +91,7 @@ export default {
           submit: 'Войти',
         },
         errors: {
-          email: 'Некорректный email',
+          email: 'Некорректный Email',
         },
       },
       users: {

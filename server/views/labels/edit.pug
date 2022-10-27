@@ -7,5 +7,5 @@ block content
   .p-1.mb-1.bg-light.rounded-1
     +formFor()(action=route('editLabelEndPoint', { id: label.id }) method='post')
       input(name='_method' type='hidden' value='patch')
-      +input(label, 'name', t('views.labels.index.name'), errors)(type="text") 
+      +input(label, 'name', errors, t('views.labels.index.name'))(type="text") 
       +submit()(value=t('views.labels.actions.edit'))
