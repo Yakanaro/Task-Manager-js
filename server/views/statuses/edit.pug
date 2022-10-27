@@ -8,4 +8,4 @@ block content
     +formFor()(action=route('editStatusEndPoint', { id: status.id }) method='post')
       input(name='_method' type='hidden' value='patch')
       +input(status, 'name', t('views.statuses.index.name'), errors)(type="text") 
-      +submit()(value=t('views.statuses.actions.submit'))
+      +submit()(value=t('views.statuses.actions.edit'))

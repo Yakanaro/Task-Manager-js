@@ -66,7 +66,7 @@ export default {
         },
         edit: {
           error: 'Не удалось изменить задачу',
-          success: 'Задача изменена',
+          success: 'Задача успешно изменена',
         },
       },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
@@ -77,7 +77,7 @@ export default {
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выход',
-        statuses: 'Статус',
+        statuses: 'Статусы',
         labels: 'Метки',
         tasks: 'Задачи',
       },
@@ -117,9 +117,9 @@ export default {
           editButton: 'Изменить',
           firstName: 'Имя',
           lastName: 'Фамилия',
-          email: 'Почта',
+          email: 'Email',
           password: 'Пароль',
-          submit: 'Принять',
+          submit: 'Сохранить',
         },
       },
       statuses: {
@@ -129,12 +129,13 @@ export default {
           name: 'Наименование',
           createdAt: 'Дата создания',
           actions: 'Действия',
-          create: 'Создать',
+          create: 'Создание статуса',
         },
         new: {
           createStatus: 'Введите статус',
           name: 'Наименование',
           create: 'Создать статус',
+          submit: 'Создать',
         },
         actions: {
           edit: 'Изменить',
@@ -150,18 +151,18 @@ export default {
           actions: 'Действия',
         },
         actions: {
-          create: 'Создать',
+          create: 'Создать метку',
           edit: 'Изменить',
           delete: 'Удалить',
         },
         new: {
           title: 'Создать метку',
           name: 'Наименование',
-          submit: 'Принять',
+          submit: 'Создать',
           newName: 'Введите наименование',
         },
         edit: {
-          title: 'Изменить метку',
+          title: 'Изменение метки',
         },
       },
       tasks: {
@@ -187,7 +188,7 @@ export default {
           submit: 'Создать',
         },
         edit: {
-          title: 'Изменить задачу',
+          title: 'Изменение задачи',
         },
       },
       welcome: {
