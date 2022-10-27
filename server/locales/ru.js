@@ -113,7 +113,7 @@ export default {
           signUp: 'Регистрация',
         },
         edit: {
-          editUser: 'Изменить пользователя',
+          editUser: 'Изменение пользователя',
           editButton: 'Изменить',
           firstName: 'Имя',
           lastName: 'Фамилия',
