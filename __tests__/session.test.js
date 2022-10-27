@@ -2,7 +2,7 @@
 
 import fastify from 'fastify';
 import init from '../server/plugin.js';
-import { getTestData, prepareData } from './helpers/index.js';
+import { prepareData } from './helpers/index.js';
 
 describe('test session', () => {
   let app;
@@ -10,12 +10,11 @@ describe('test session', () => {
   let testData;
 
   beforeAll(async () => {
-    app = fastify({ logger: { prettyPrint: true } });
+    app = fastify();
     await init(app);
     knex = app.objection.knex;
     await knex.migrate.latest();
-    await prepareData(app);
-    testData = getTestData();
+    testData = await prepareData(app);
   });
 
   it('test sign in / sign out', async () => {
@@ -30,7 +29,7 @@ describe('test session', () => {
       method: 'POST',
       url: app.reverse('session'),
       payload: {
-        data: testData.users.existing,
+        data: testData.users.existing.creator,
       },
     });
 

@@ -1,18 +1,17 @@
-import _ from 'lodash';
 import fastify from 'fastify';
 
 import init from '../server/plugin.js';
-import encrypt from '../server/lib/secure.cjs';
 import { prepareData, authUser } from './helpers/index.js';
 
-describe('test users CRUD', () => {
+describe('test tasks CRUD', () => {
   let app;
   let knex;
   let models;
+  let cookie;
   let testData;
 
   beforeAll(async () => {
-    app = fastify({ logger: { prettyPrint: true }});
+    app = fastify();
     await init(app);
     knex = app.objection.knex;
     models = app.objection.models;
@@ -21,12 +20,14 @@ describe('test users CRUD', () => {
 
   beforeEach(async () => {
     testData = await prepareData(app);
+    cookie = await authUser(app, testData.users.existing.creator);
   });
 
   it('index', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('users'),
+      url: app.reverse('tasks'),
+      cookies: cookie,
     });
 
     expect(response.statusCode).toBe(200);
@@ -35,84 +36,88 @@ describe('test users CRUD', () => {
   it('new', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('newUser'),
+      url: app.reverse('newTask'),
+      cookies: cookie,
+    });
+    expect(response.statusCode).toBe(200);
+  });
+
+  it('view', async () => {
+    const params = testData.tasks.existing;
+    const task = await models.task.query().findOne({ name: params.name });
+
+    const response = await app.inject({
+      method: 'GET',
+      url: app.reverse('viewTask', { id: task.id }),
+      cookies: cookie,
     });
 
     expect(response.statusCode).toBe(200);
   });
 
   it('edit', async () => {
-    const params = testData.users.existing.creator;
-    const user = await models.user.query().findOne({ email: params.email });
-    const cookie = await authUser(app, params);
-
+    const params = testData.tasks.existing;
+    const task = await models.task.query().findOne({ name: params.name });
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('editUser', { id: user.id }),
+      url: app.reverse('editTask', { id: task.id }),
       cookies: cookie,
     });
-
     expect(response.statusCode).toBe(200);
   });
 
   it('create', async () => {
-    const params = testData.users.new;
+    const params = testData.tasks.new;
 
     const response = await app.inject({
       method: 'POST',
-      url: app.reverse('users'),
+      url: app.reverse('tasks'),
       payload: {
         data: params,
       },
+      cookies: cookie,
     });
 
     expect(response.statusCode).toBe(302);
-
-    const expected = {
-      ..._.omit(params, 'password'),
-      passwordDigest: encrypt(params.password),
-    };
-    const user = await models.user.query().findOne({ email: params.email });
-    expect(user).toMatchObject(expected);
+    const task = await models.task.query().findOne({ name: params.name });
+    expect(task).toMatchObject(params);
   });
 
   it('update', async () => {
-    const params = testData.users.existing.creator;
-    const user = await models.user.query().findOne({ email: params.email });
-    const newEmail = 'new@example.com';
-    const cookie = await authUser(app, params);
+    const params = testData.tasks.existing;
+    const task = await models.task.query().findOne({ name: params.name });
+    const newTaskName = 'New task name';
 
     const response = await app.inject({
       method: 'PATCH',
-      url: app.reverse('editUserEndPoint', { id: user.id }),
+      url: app.reverse('editTaskEndPoint', { id: task.id }),
       payload: {
         data: {
           ...params,
-          firstName: newEmail,
+          name: newTaskName,
         },
       },
       cookies: cookie,
     });
 
     expect(response.statusCode).toBe(302);
-    const reFetchedUser = await user.$query();
-    expect(reFetchedUser.firstName).toEqual(newEmail);
+    const reFetchedTask = await task.$query();
+    expect(reFetchedTask.name).toEqual(newTaskName);
   });
 
   it('delete', async () => {
-    const params = testData.users.existing.free;
-    const user = await models.user.query().findOne({ email: params.email });
-    const cookie = await authUser(app, params);
+    const params = testData.tasks.existing;
+    const task = await models.task.query().findOne({ name: params.name });
 
     const responseDelete = await app.inject({
       method: 'DELETE',
-      url: app.reverse('deleteUser', { id: user.id }),
+      url: app.reverse('deleteTask', { id: task.id }),
       cookies: cookie,
     });
 
     expect(responseDelete.statusCode).toBe(302);
-    const reFetchedUser = await user.$query();
-    expect(reFetchedUser).toBeUndefined();
+    const reFetchedTask = await task.$query();
+    expect(reFetchedTask).toBeUndefined();
   });
 
   afterEach(async () => {

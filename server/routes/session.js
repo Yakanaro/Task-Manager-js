@@ -8,6 +8,7 @@ export default (app) => {
       const signInForm = {};
       reply.render('session/new', { signInForm });
     })
+
     .post('/session', { name: 'session' }, app.fp.authenticate('form', async (req, reply, err, user) => {
       if (err) {
         return app.httpErrors.internalServerError(err);
@@ -23,6 +24,7 @@ export default (app) => {
       req.flash('success', i18next.t('flash.session.create.success'));
       return reply.redirect(app.reverse('root'));
     }))
+
     .delete('/session', (req, reply) => {
       req.logOut();
       req.flash('info', i18next.t('flash.session.delete.success'));

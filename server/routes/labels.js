@@ -12,9 +12,9 @@ export default (app) => app
   })
   .post('/labels', async (req, reply) => {
     try {
-      const { id } = req.user;
+      // const { id } = req.user;
       const label = await app.objection.models.label.fromJson(req.body.data);
-      const user = await app.objection.models.user.query().findById(id);
+      // const user = await app.objection.models.user.query().findById(id);
       await app.objection.models.label.query().insert(label);
 
       req.flash('info', i18next.t('flash.labels.create.success'));
@@ -26,13 +26,13 @@ export default (app) => app
       return reply;
     }
   })
-  .get('/labels/:id/edit', {name: 'editLabel'}, async (req, reply) => {
+  .get('/labels/:id/edit', { name: 'editLabel' }, async (req, reply) => {
     const { id } = req.params;
     const label = await app.objection.models.label.query().findById(id);
     reply.render('labels/edit', { label });
     return reply;
   })
-  .patch('/labels/:id', {name: 'editLabelEndPoint'}, async (req, reply) => {
+  .patch('/labels/:id', { name: 'editLabelEndPoint' }, async (req, reply) => {
     const { id } = req.params;
     try {
       const patchForm = await app.objection.models.label.fromJson(req.body.data);
@@ -50,7 +50,7 @@ export default (app) => app
       return reply;
     }
   })
-  .delete('/labels/:id', {name: 'deleteLabel'}, async (req, reply) => {
+  .delete('/labels/:id', { name: 'deleteLabel' }, async (req, reply) => {
     const { id } = req.params;
     try {
       await app.objection.models.label.query().deleteById(id);

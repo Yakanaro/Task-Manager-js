@@ -2,29 +2,49 @@
 
 import { fileURLToPath } from 'url';
 import path from 'path';
+// @ts-ignore
 import fastifyStatic from 'fastify-static';
+// @ts-ignore
 import fastifyErrorPage from 'fastify-error-page';
+// @ts-ignore
+import Rollbar from 'rollbar';
 
+// @ts-ignore
 import pointOfView from 'point-of-view';
+// @ts-ignore
 import fastifyFormbody from 'fastify-formbody';
+// @ts-ignore
 import fastifySecureSession from 'fastify-secure-session';
+// @ts-ignore
 import fastifyPassport from 'fastify-passport';
+// @ts-ignore
 import fastifySensible from 'fastify-sensible';
+// @ts-ignore
 import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
+// @ts-ignore
 import fastifyMethodOverride from 'fastify-method-override';
+// @ts-ignore
 import fastifyObjectionjs from 'fastify-objectionjs';
+// @ts-ignore
 import qs from 'qs';
 import Pug from 'pug';
+// @ts-ignore
 import i18next from 'i18next';
+// @ts-ignore
 import ru from './locales/ru.js';
 // @ts-ignore
 
 import addRoutes from './routes/index.js';
+// @ts-ignore
 import getHelpers from './helpers/index.js';
+// @ts-ignore
 import * as knexConfig from '../knexfile.js';
+// @ts-ignore
 import models from './models/index.js';
+// @ts-ignore
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
+// @ts-ignore
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
 const mode = process.env.NODE_ENV || 'development';
@@ -69,6 +89,20 @@ const setupLocalization = async () => {
     });
 };
 
+const setupErrorHandler = (app) => {
+  const rollbar = new Rollbar({
+    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+  });
+
+  app.setErrorHandler((error) => {
+    rollbar.error(error);
+  });
+
+  return app;
+};
+
 const addHooks = (app) => {
   app.addHook('preHandler', async (req, reply) => {
     reply.locals = {
@@ -91,14 +125,20 @@ const registerPlugins = (app) => {
     },
   });
 
+  // @ts-ignore
   fastifyPassport.registerUserDeserializer(
     (user) => app.objection.models.user.query().findById(user.id),
   );
+  // @ts-ignore
   fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
+  // @ts-ignore
   fastifyPassport.use(new FormStrategy('form', app));
+  // @ts-ignore
   app.register(fastifyPassport.initialize());
+  // @ts-ignore
   app.register(fastifyPassport.secureSession());
   app.decorate('fp', fastifyPassport);
+  // @ts-ignore
   app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
     'form',
     {
@@ -116,6 +156,8 @@ const registerPlugins = (app) => {
 };
 
 // eslint-disable-next-line no-unused-vars
+// @ts-ignore
+// @ts-ignore
 export default async (app, options) => {
   registerPlugins(app);
 
@@ -124,6 +166,7 @@ export default async (app, options) => {
   setUpStaticAssets(app);
   addRoutes(app);
   addHooks(app);
+  setupErrorHandler(app);
 
   return app;
 };
