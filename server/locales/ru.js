@@ -53,8 +53,8 @@ export default {
         edit: {
           error: 'Не удалось изменить метку',
           success: 'Метка изменена',
+        },
       },
-    },
       tasks: {
         create: {
           error: 'Не удалось создать задачу',
@@ -67,8 +67,8 @@ export default {
         edit: {
           error: 'Не удалось изменить задачу',
           success: 'Задача изменена',
-      } 
-    },
+        },
+      },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
     layouts: {
@@ -90,25 +90,25 @@ export default {
           signIn: 'Вход',
           submit: 'Войти',
         },
-      errors: {
-        email: 'Некорректный email'
-      }
+        errors: {
+          email: 'Некорректный email',
+        },
       },
       users: {
         id: 'ID',
-        fullName:'Полное имя',
+        fullName: 'Полное имя',
         email: 'Email',
-        action:'Действия',
+        action: 'Действия',
         createdAt: 'Дата создания',
-          actions: {
-            delete: 'Удалить',
-            edit:'Изменить',
-          },
+        actions: {
+          delete: 'Удалить',
+          edit: 'Изменить',
+        },
         new: {
-          email: 'Введите вашу почту',
-          password: 'Придумайте пароль',
-          firstName: 'Введите ваше имя',
-          lastName: 'Введите вашу фамилию',
+          email: 'Email',
+          password: 'Пароль',
+          firstName: 'Имя',
+          lastName: 'Фамилия',
           submit: 'Сохранить',
           signUp: 'Регистрация',
         },
@@ -120,7 +120,7 @@ export default {
           email: 'Почта',
           password: 'Пароль',
           submit: 'Принять',
-        }
+        },
       },
       statuses: {
         title: 'Изменение статуса',
@@ -130,7 +130,7 @@ export default {
           createdAt: 'Дата создания',
           actions: 'Действия',
           create: 'Создать',
-      },
+        },
         new: {
           createStatus: 'Введите статус',
           name: 'Наименование',
@@ -141,7 +141,7 @@ export default {
           delete: 'Удалить',
           submit: 'Принять',
         },
-    },
+      },
       labels: {
         index: {
           id: 'ID',
@@ -162,7 +162,7 @@ export default {
         },
         edit: {
           title: 'Изменить метку',
-        }
+        },
       },
       tasks: {
         index: {
@@ -188,14 +188,14 @@ export default {
         },
         edit: {
           title: 'Изменить задачу',
-        }
+        },
       },
-        welcome: {
-          index: {
-            hello: 'Привет от Хекслета!',
-            description: 'Практические курсы по программированию',
-            more: 'Узнать Больше',
-          },
+      welcome: {
+        index: {
+          hello: 'Привет от Хекслета!',
+          description: 'Практические курсы по программированию',
+          more: 'Узнать Больше',
+        },
       },
     },
   },
