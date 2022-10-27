@@ -25,23 +25,38 @@
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
 - const mappingErrorMessage = { name: t('views.errors.firstName'), firstName: t('views.errors.firstName'), lastName: t('views.errors.lastName'), password: t('views.errors.password'), email: t('views.errors.email'), };
+
 mixin formFor(entity = null)
   form&attributes(attributes)
     block
-mixin input(entity, propertyName, label, errors = {})
+
+mixin input(entity, propertyName, errors = {}, label, isTextarea)
   - propertyErrors = _.get(errors, propertyName)
-  - classLine = 'form-control' + (_.isEmpty(errors) ? '' : ' is-invalid')
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
-  .form-group(class=(errors[propertyName] && 'has-danger'))
-    label(
+  - inputValue = _.get(entity, propertyName, '')
+
+  .mb-3(class=(errors[propertyName] && 'has-danger'))
+    label.mb-1(
       for= inputId
     )= label
-    input(
-      id= inputId
-      name=getInputName(propertyName)
-      class=classLine
-      value=_.get(entity, propertyName, '')
-    )&attributes(attributes)
+
+    if isTextarea
+      textarea(
+        id=inputId
+        name=getInputName(propertyName)
+        class=classLine
+        row=3
+      )&attributes(attributes)=inputValue
+
+    else
+      input(
+        id= inputId
+        name=getInputName(propertyName)
+        class=classLine
+        value=inputValue
+      )&attributes(attributes)  
+
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
 
