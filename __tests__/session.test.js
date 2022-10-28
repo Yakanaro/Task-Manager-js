@@ -1,6 +1,9 @@
-// @ts-check
+// @ts-nocheck
 
 import fastify from 'fastify';
+import {
+  describe, beforeAll, it, expect, afterAll,
+} from '@jest/globals';
 import init from '../server/plugin.js';
 import { prepareData } from './helpers/index.js';
 

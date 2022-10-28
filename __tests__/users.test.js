@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import fastify from 'fastify';
-
+import {
+  describe, beforeAll, it, expect, beforeEach, afterEach, afterAll,
+} from '@jest/globals';
 import init from '../server/plugin.js';
 import encrypt from '../server/lib/secure.cjs';
 import { prepareData, authUser } from './helpers/index.js';
