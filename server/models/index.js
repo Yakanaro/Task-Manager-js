@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import User from './User.cjs';
 import Status from './Status.cjs';
@@ -13,5 +13,5 @@ export default [
   Label,
   Task,
   TaskStatus,
-  LabelTask
+  LabelTask,
 ];
