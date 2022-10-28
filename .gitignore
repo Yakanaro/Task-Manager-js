@@ -8,3 +8,4 @@ dist/
 tmp/
 temp/
 database.sqlite
+coverage/
