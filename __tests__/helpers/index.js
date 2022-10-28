@@ -53,7 +53,6 @@ export const authUser = async (app, user) => {
     payload: { data: user },
   });
 
-  // после успешной аутентификации получаем куки из ответа
   const [sessionCookie] = responseSignIn.cookies;
   const { name, value } = sessionCookie;
   const cookie = { [name]: value };
