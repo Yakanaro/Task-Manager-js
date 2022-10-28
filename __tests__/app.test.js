@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import {
-  describe, beforeAll, it, expect, afterAll
+  describe, beforeAll, it, expect, afterAll,
 } from '@jest/globals';
 
 import fastify from 'fastify';
